@@ -7,10 +7,11 @@ export default router;
 router.route("/files").get(async (request, response) => {
   try {
     const sql = `
-        SELECT *,
-        (SELECT to_json(folders)
+        SELECT files.*,
+        (
+        SELECT to_json(folders)
         FROM folders
-        WHERE folders.id = files.folder
+        WHERE folders.id = files.folder_id
         ) AS folder
         FROM files
         `;
@@ -35,7 +36,7 @@ router.route("/folders/:id").get(async (request, response) => {
   try {
     const { id } = request.params;
     const sql = `
-        SELECT folders.*, files.*,
+        SELECT folders.*,
         (
         SELECT json_agg(files)
         FROM files
