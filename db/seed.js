@@ -29,3 +29,4 @@ async function seed() {
     { name: "file15", size: 5, folder_id: 3 },
   ];
 }
+export default seed;
